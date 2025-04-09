@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thống kê vi phạm</title>
+  <link rel="stylesheet" href="../static/css/analytic.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <!-- <link rel="stylesheet" href="https://unpkg.com/leaflet.fullscreen/Control.FullScreen.css" /> -->
+  <!-- <script src="https://unpkg.com/leaflet.fullscreen/Control.FullScreen.js"></script> -->
+</head>
+
+<body>
+
+  <div class="header">Thống kê vi phạm giao thông</div>
+
+  <div class="container">
+    <div class="form-group">
+      <select id="loaiPhuongTien">
+        <option value="">Chọn phương tiện</option>
+        <option value="Ô tô">Ô tô</option>
+        <option value="Xe máy">Xe máy</option>
+        <option value="Xe điện">Xe điện</option>
+      </select>
+
+      <input type="text" id="diaDiem" placeholder="Nhập địa điểm...">
+
+      <select id="hanhVi">
+        <option value="">Chọn hành vi</option>
+        <option value="Vượt đèn đỏ">Vượt đèn đỏ</option>
+        <option value="Không đội mũ bảo hiểm">Không đội mũ bảo hiểm</option>
+        <option value="Đi ngược chiều">Đi ngược chiều</option>
+        <option value="Đi sai làn đường">Đi sai làn đường</option>
+        <option value="Chạy quá tốc độ">Chạy quá tốc độ</option>
+        <option value="Không xi nhan khi rẽ">Không xi nhan khi rẽ</option>
+        <option value="Sử dụng điện thoại khi lái xe">Sử dụng điện thoại khi lái xe</option>
+      </select>
+
+      <select id="year">
+        <option value="">Chọn năm</option>
+        <script>
+          for (let i = 2015; i <= 2025; i++) {
+            document.write(`<option value="${i}">${i}</option>`);
+          }
+        </script>
+      </select>
+
+      <select id="month">
+        <option value="">Chọn tháng</option>
+        <script>
+          for (let i = 1; i <= 12; i++) {
+            document.write(`<option value="${i}">Tháng ${i}</option>`);
+          }
+        </script>
+      </select>
+
+      <select id="day">
+        <option value="">Chọn ngày</option>
+        <script>
+          for (let i = 1; i <= 31; i++) {
+            document.write(`<option value="${i}">Ngày ${i}</option>`);
+          }
+        </script>
+      </select>
+    </div>
+
+    <button class="submit-btn" onclick="fetchThongKe()">Thống kê</button>
+  </div>
+
+  <div class="container-new">
+    <div class="result-table" id="dataBody">
+      <h2 id="noteAnalytic">Dữ liệu thống kê sẽ hiển thị ở đây</h2>
+    </div>
+    <div class="map" id="map">
+    </div>
+  </div>
+
+  <script src="../static/js/analytic.js"></script>
+
+</body>
+
+</html>

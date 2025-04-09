@@ -1,0 +1,268 @@
+/* Global Styles */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(to right, #ff416c, #ff4b2b);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Container chia layout thành 3 cột */
+.container {
+  display: flex;
+  width: 97%;
+  /* max-width: 1400px; */
+  gap: 20px;
+}
+
+/* Cột Lịch sử vi phạm */
+/* Đảm bảo cột lịch sử vi phạm không bị tràn */
+.history-column {
+  flex: 1.1;
+  /* width: 15%; */
+  max-width: 100%;
+  overflow: hidden; /* Ẩn nội dung tràn */
+  border-radius: 10px;
+}
+
+/* Cột Form */
+.form-column {
+  flex: 1.1;
+}
+
+/* Cột Google Map */
+.map-column {
+  flex: 1;
+}
+
+/* Form Container */
+.form-container {
+  background-color: #fff;
+  padding: 30px 25px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  margin-bottom: 20px;
+  height: 92%;
+}
+
+.form-container h2 {
+  text-align: center;
+  color: #ff4b2b;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+/* Các nhóm trường nhập */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  font-weight: 600;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.form-group input,
+.form-group select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.form-group input::placeholder {
+  color: #999;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: #ff416c;
+  box-shadow: 0 0 5px rgba(255, 65, 108, 0.2);
+}
+
+/* Hàng cho Biển kiểm soát + nút lịch sử */
+.form-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.form-row .form-group {
+  flex: 1;
+}
+
+/* Các chức năng tìm kiếm và chọn */
+
+.custom-select {
+  position: relative;
+  display: inline-flex; /*Làm mất phần gợi ý, đổi sang inline-block thì hiện*/
+  width: 200px;
+}
+.select-box {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+}
+.options {
+  display: none;
+  position: absolute;
+  width: 100%;
+  border: 1px solid #ccc;
+  background: white;
+  max-height: 150px;
+  overflow-y: auto;
+  z-index: 10;
+  border-radius: 5px;
+}
+.options div {
+  padding: 8px;
+  cursor: pointer;
+}
+.options div:hover {
+  background: #ddd;
+}
+.show {
+  display: block;
+}
+
+/* Button group */
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+/* Các nút */
+.submit-btn,
+.return-btn,
+.history-btn {
+  padding: 12px;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.submit-btn {
+  background: #ff4b2b;
+}
+
+.submit-btn:hover {
+  background: #ff416c;
+}
+
+.return-btn {
+  background: #ef8f09;
+}
+
+.return-btn:hover {
+  background: #e7d404;
+}
+
+.history-btn {
+  background: #007bff;
+  margin-top: 22px;
+}
+
+.history-btn:hover {
+  background: #0056b3;
+}
+
+/* Địa điểm vi phạm Fieldset */
+.location-fieldset {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 15px;
+  margin-bottom: 15px;
+}
+
+.location-fieldset legend {
+  font-weight: bold;
+  color: #333;
+}
+
+/* Lịch sử vi phạm */
+.violation-history {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  /* max-height: 500px;  */
+  height: 100%;
+  overflow-y: auto; /* Cuộn nếu tràn */
+}
+
+.violation-history h2 {
+  text-align: center;
+  color: #ff4b2b;
+  margin-bottom: 15px;
+}
+
+
+/* Style cho bảng lịch sử vi phạm */
+#violation-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+#violation-table th, #violation-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+#violation-table th {
+  background-color: #ff4b2b;
+  color: white;
+  position: sticky;
+  top: 0;
+}
+
+#violation-table tbody {
+  display: block;
+  max-height: 55vh; /* Giới hạn chiều cao bảng */
+  overflow-y: auto;
+}
+
+#violation-table thead, #violation-table tbody tr {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+}
+
+/* Đảm bảo bảng responsive */
+@media screen and (max-width: 90%) {
+  .history-column {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .violation-history {
+    max-height: none;
+  }
+
+  #violation-table tbody {
+    max-height: 90%;
+  }
+}
+
+/* Map */
+#map-api {
+  width: 100%;
+  height: 800px;
+  background-color: #eee;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+

@@ -1,0 +1,436 @@
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* FONT & MÀU SẮC */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f8f9fa;
+  color: #333;
+}
+
+/* HEADER */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #ff4b2b;
+  padding: 15px 20px;
+}
+.header-logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #fff;
+}
+.header-nav .nav-link {
+  color: #fff;
+  margin-left: 20px;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+.header-nav .nav-link:hover {
+  opacity: 0.7;
+}
+
+
+/* Xử lý cụm góc phải : user-name ,user-info, logout */
+
+
+/* Container chính cho khu vực hiển thị tên + icon */
+.user-info {
+  display: none; /* Mặc định ẩn, sẽ bật bằng JS nếu đã login */
+  align-items: center;
+  gap: 8px; /* Khoảng cách giữa tên và icon */
+  position: relative; /* Để dropdown có thể tuyệt đối so với .user-info */
+  cursor: pointer;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Tên user */
+.user-info #user-name {
+  font-weight: 600;
+  color: #fff;
+}
+
+/* Icon user */
+.user-info i {
+  color: #fff;
+  font-size: 1.2rem;
+}
+
+/* Dropdown menu */
+.user-info .dropdown-menu {
+  display: none; /* Ẩn mặc định, JS sẽ toggle */
+  position: absolute;
+  top: calc(100% + 8px); /* Cách div cha 8px */
+  right: 0;
+  min-width: 120px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 6px;
+  overflow: hidden; /* Cho bo góc gọn gàng */
+  z-index: 999;
+}
+
+/* Mỗi item bên trong dropdown */
+.user-info .dropdown-menu a,
+.user-info .dropdown-menu button {
+  display: block;
+  width: 100%;
+  padding: 10px 16px;
+  text-align: left;
+  text-decoration: none;
+  background-color: transparent;
+  color: #ff4b2b;
+  font-size: 0.9rem;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  font-family: inherit; /* Giữ font đồng nhất */
+}
+
+/* Hiệu ứng hover cho item */
+.user-info .dropdown-menu a:hover,
+.user-info .dropdown-menu button:hover {
+  background-color: #f5f5f5;
+}
+
+/* Tùy chỉnh nếu muốn icon to hơn, chữ to hơn, v.v. */
+.user-info i:hover {
+  color: #666;
+}
+
+
+
+
+
+
+/* HERO */
+.hero {
+  text-align: center;
+  background: linear-gradient(to right, #ff416c, #ff4b2b);
+  color: #fff;
+  padding: 40px 20px;
+}
+.hero-title {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+}
+.hero-subtitle {
+  font-size: 1.2rem;
+}
+
+/* CONTAINER */
+.container {
+  width: 90%;
+  max-width: 900px;
+  margin: 30px auto;
+  background-color: #fff;
+  padding: 25px;
+  border-radius: 8px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+}
+.container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* TABS */
+.tabs {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+.tab-btn {
+  background-color: #eee;
+  border: none;
+  padding: 10px 20px;
+  margin: 0 5px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s;
+  border-radius: 4px;
+}
+.tab-btn:hover {
+  background-color: #ddd;
+}
+.tab-btn.active {
+  background-color: #ff4b2b;
+  color: #fff;
+}
+.tab-content {
+  display: none;
+}
+.tab-content.active {
+  display: block;
+  margin-top: 20px;
+}
+
+/* UPLOAD */
+.upload-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.drop-area {
+  width: 100%;
+  max-width: 500px;
+  height: 200px;
+  border: 2px dashed #ccc;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background 0.3s;
+  margin-bottom: 15px;
+}
+.drop-area:hover {
+  background: #fafafa;
+}
+.drop-area p {
+  color: #999;
+  font-size: 1rem;
+}
+#upload-preview {
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 8px;
+}
+.upload-actions {
+  display: flex;
+  gap: 10px;
+}
+
+/* CAMERA */
+.camera-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#camera-view,
+#captured-image-container {
+  width: 100%;
+  max-width: 500px;
+  height: 300px;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #ccc;
+}
+#camera-stream {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+#captured-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.camera-actions {
+  display: flex;
+  gap: 10px;
+}
+
+/* MANUAL INPUT */
+.manual-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.manual-container label {
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+#plate-input {
+  width: 60%;
+  max-width: 300px;
+  padding: 8px;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+.manual-actions {
+  margin-top: 10px;
+}
+
+/* NÚT CHUNG */
+.btn {
+  cursor: pointer;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 18px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: background-color 0.2s;
+}
+.primary-btn {
+  background-color: #ff4b2b;
+  color: #fff;
+}
+.primary-btn:hover {
+  background-color: #ff6a4d;
+}
+.secondary-btn {
+  background-color: #e0e0e0;
+  color: #333;
+}
+.secondary-btn:hover {
+  background-color: #ccc;
+}
+
+/* FOOTER */
+.footer {
+  text-align: center;
+  padding: 15px;
+  background-color: #eee;
+  margin-top: 17vh;
+  width: 100%;
+  /* position: fixed; */
+  bottom: 0;
+}
+.footer p {
+  color: #777;
+  font-size: 0.9rem;
+}
+
+
+
+/* CONTAINER DƯỚI */
+
+/* .plate-item */
+
+#plates-container {
+  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+}
+
+.plate-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+  background: white;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease-in-out;
+}
+
+.plate-item:hover {
+  transform: scale(1.05);
+}
+
+.plate-item img {
+  width: 220px;
+  height: 150px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.plate-item span {
+  margin-top: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #444;
+}
+
+
+/* phat-nguoi-form */
+
+
+/* Container banner */
+#phat-nguoi-form {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -150%);
+  background-color: #fff;
+  width: auto;
+  /* max-width: 600px; */
+  height: auto;
+  max-height: 80vh;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  overflow: hidden; /* Giữ border-radius ngay cả khi có scroll */
+  transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+  opacity: 0;
+  z-index: 1000;
+  
+}
+
+/* Khi hiển thị banner */
+#phat-nguoi-form.show {
+  transform: translate(-50%, -50%);
+  opacity: 1;
+}
+
+/* Inner wrapper để nội dung scroll được mà không ảnh hưởng đến border-radius */
+#phat-nguoi-form .content-wrapper {
+  position: relative;
+  max-height: 80vh; /* Để nó có thể cuộn */
+  padding: 20px;
+  overflow-y: auto;
+}
+
+/* Nút X ở góc trên bên phải */
+#phat-nguoi-form .close-x {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  /* float: right; */
+}
+
+#closePnFormBtn{
+  float: right;
+}
+/* Style cho bảng */
+#phat-nguoi-table {
+  width: auto;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+#phat-nguoi-table th,
+#phat-nguoi-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+#phat-nguoi-table th {
+  background-color: #ff4b2b;
+  color: #ffffff;
+}
+
+
+/* Nút gửi báo cáo */
+#reportBtn {
+  display: block;  /* Chuyển nút thành block để dễ căn giữa */
+  margin: 20px auto; /* Canh giữa theo chiều ngang */
+  padding: 12px 20px;
+  background-color: #ff4b2b;
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+

@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Form Vi Phạm</title>
+  <link rel="stylesheet" href="../static/css/report.css">
+  <!-- <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" /> -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <!-- <link rel="stylesheet" href="../static/css/leaflet.css"> -->
+</head>
+
+<body>
+  <div class="container">
+    <!-- Cột 1: Lịch sử vi phạm (bên trái của form) -->
+    <div id="history-column" class="history-column">
+      <div class="violation-history">
+        <button id="hideHistoryBtn"><span id="toggleIcon">❌</span></button>
+        <h2>Lịch sử vi phạm</h2>
+        <div id="history-content">
+        </div>
+      </div>
+    </div>
+
+    <!-- Cột 2: Form nhập dữ liệu (ở giữa) -->
+    <div class="form-column">
+      <div class="form-container">
+        <h2>Nhập thông tin vi phạm</h2>
+        <form action="" method="post">
+          <!-- Hàng: Biển kiểm soát + nút "Hiển thị lịch sử vi phạm" -->
+          <div class="form-row">
+            <div class="form-group">
+              <label>Biển kiểm soát</label>
+              <input type="text" id="signInput" placeholder="Nhập biển kiểm soát..." required>
+            </div>
+            <div class="form-group">
+              <button type="button" id="historyBtn" class="history-btn">Hiển thị lịch sử vi phạm</button>
+            </div>
+          </div>
+
+          <!-- Loại phương tiện: Chuyển thành custom dropdown -->
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Loại phương tiện</label>
+              <div class="custom-select">
+                <input type="text" id="vehicleTypeInput" class="select-box" placeholder="-- Chọn loại phương tiện --"
+                  readonly>
+                <div class="options">
+                  <input type="text" id="vehicleSearch" placeholder="Nhập để tìm kiếm..."
+                    style="width: 100%; padding: 5px; box-sizing: border-box;">
+                  <div class="option" data-value="Ô tô">Ô tô</div>
+                  <div class="option" data-value="Xe máy">Xe máy</div>
+                  <div class="option" data-value="Xe điện">Xe điện</div>
+                </div>
+                <input type="hidden" id="vehicleType" name="vehicleType" required>
+              </div>
+            </div>
+
+            <!-- Hành vi vi phạm -->
+            <div class="form-group">
+              <label>Hành vi vi phạm</label>
+              <div class="custom-select" id="violation-dropdown">
+                <input type="text" id="violationInput" class="select-box" placeholder="-- Chọn hành vi vi phạm --"
+                  readonly>
+                <div class="options">
+                  <input type="text" id="violationSearch" placeholder="Tìm hành vi..."
+                    style="width: 100%; padding: 5px; box-sizing: border-box;">
+                  <div class="option" data-value="Vượt đèn đỏ">Vượt đèn đỏ</div>
+                  <div class="option" data-value="Không đội mũ bảo hiểm">Không đội mũ bảo hiểm</div>
+                  <div class="option" data-value="Đi ngược chiều">Đi ngược chiều</div>
+                  <div class="option" data-value="Đi sai làn đường">Đi sai làn đường</div>
+                  <div class="option" data-value="Chạy quá tốc độ">Chạy quá tốc độ</div>
+                  <div class="option" data-value="Không xi nhan khi rẽ">Không xi nhan khi rẽ</div>
+                  <div class="option" data-value="Sử dụng điện thoại khi lái xe">Sử dụng điện thoại khi lái xe</div>
+                </div>
+
+
+                <input type="hidden" id="violationBehavior" name="violationBehavior" required>
+              </div>
+            </div>
+          </div>
+          <!-- Thời gian vi phạm: datetime-local (JS tự set thời gian hiện tại) -->
+          <div class="form-group">
+            <label>Thời gian vi phạm</label>
+            <input type="datetime-local" id="violationTime" required>
+          </div>
+
+
+          <!-- Địa chỉ vi phạm -->
+
+          <h3>Địa chỉ vi phạm</h3>
+          <div class="autocomplete-container" style="position: relative; width: 100%;">
+            <input type="text" id="violationAddress" placeholder="Nhập địa chỉ..." autocomplete="off">
+            <ul id="suggestions"></ul>
+            <!-- Toạ độ: disabled -->
+            <div class="form-group">
+              <label>Toạ độ</label>
+              <input type="text" placeholder="Toạ độ sẽ được lấy khi bấm map" id="coordinate" name="coordinate"
+                data-value="coordinate" disabled>
+            </div>
+          </div>
+
+
+          <!-- Đơn vị phát hiện vi phạm -->
+          <div class="form-row">
+            <div class="form-group">
+              <label>Đơn vị phát hiện vi phạm</label>
+              <div class="custom-select" id="unit-dropdown">
+                <input type="text" id="unitInput" class="select-box" placeholder="-- Chọn đơn vị --" readonly>
+                <div class="options">
+                  <input type="text" id="unitSearch" placeholder="Tìm đơn vị..."
+                    style="width: 100%; padding: 5px; box-sizing: border-box;">
+                  <div class="option" data-value="Cảnh sát giao thông tỉnh An Giang">Cảnh sát giao thông tỉnh An Giang
+                  </div>
+                  <div class="option" data-value="Cảnh sát giao thông tỉnh Bà Rịa - Vũng Tàu">Cảnh sát giao thông tỉnh
+                    Bà
+                    Rịa - Vũng Tàu</div>
+                  <div class="option" data-value="Cảnh sát giao thông tỉnh Bắc Giang">Cảnh sát giao thông tỉnh Bắc Giang
+                  </div>
+                  <div class="option" data-value="Cảnh sát giao thông tỉnh Bắc Kạn">Cảnh sát giao thông tỉnh Bắc Kạn
+                  </div>
+                  <div class="option" data-value="Cảnh sát giao thông tỉnh Bạc Liêu">Cảnh sát giao thông tỉnh Bạc Liêu
+                  </div>
+                  <div class="option" data-value="Cảnh sát giao thông tỉnh Bắc Ninh">Cảnh sát giao thông tỉnh Bắc Ninh
+                  </div>
+                  <div class="option" data-value="Cảnh sát giao thông tỉnh Bến Tre">Cảnh sát giao thông tỉnh Bến Tre
+                  </div>
+                  <div class="option" data-value="Cảnh sát giao thông tỉnh Bình Định">Cảnh sát giao thông tỉnh Bình Định
+                  </div>
+                  <div class="option" data-value="Cảnh sát giao thông tỉnh Bình Dương">Cảnh sát giao thông tỉnh Bình
+                    Dương
+                  </div>
+                  <div class="option" data-value="Cảnh sát giao thông tỉnh Bình Phước">Cảnh sát giao thông tỉnh Bình
+                    Phước
+                  </div>
+                  <div class="option" data-value="Cảnh sát giao thông tỉnh Bình Thuận">Cảnh sát giao thông tỉnh Bình
+                    Thuận
+                  </div>
+                  <div class="option" data-value="Cảnh sát giao thông tỉnh Cà Mau">Cảnh sát giao thông tỉnh Cà Mau</div>
+                  <div class="option" data-value="Cảnh sát giao thông tỉnh Cao Bằng">Cảnh sát giao thông tỉnh Cao Bằng
+                  </div>
+                  <div class="option" data-value="Cảnh sát giao thông tỉnh Cần Thơ">Cảnh sát giao thông tỉnh Cần Thơ
+                  </div>
+                  <div class="option" data-value="Cảnh sát giao thông tỉnh Đà Nẵng">Cảnh sát giao thông tỉnh Đà Nẵng
+                  </div>
+                  <div class="option" data-value="Cảnh sát giao thông tỉnh Đắk Lắk">Cảnh sát giao thông tỉnh Đắk Lắk
+                  </div>
+                  <div class="option" data-value="Cảnh sát giao thông tỉnh Đắk Nông">Cảnh sát giao thông tỉnh Đắk Nông
+                  </div>
+                  <div class="option" data-value="Cảnh sát giao thông tỉnh Điện Biên">Cảnh sát giao thông tỉnh Điện Biên
+                  </div>
+                  <div class="option" data-value="Cảnh sát giao thông tỉnh Đồng Nai">Cảnh sát giao thông tỉnh Đồng Nai
+                  </div>
+                  <div class="option" data-value="Cảnh sát giao thông tỉnh Đồng Tháp">Cảnh sát giao thông tỉnh Đồng Tháp
+                  </div>
+                  <div class="option" data-value="Cảnh sát giao thông tỉnh Gia Lai">Cảnh sát giao thông tỉnh Gia Lai
+                  </div>
+                  <div class="option" data-value="Cảnh sát giao thông tỉnh Hà Giang">Cảnh sát giao thông tỉnh Hà Giang
+                  </div>
+                  <div class="option" data-value="Cảnh sát giao thông tỉnh Hà Nam">Cảnh sát giao thông tỉnh Hà Nam</div>
+                  <div class="option" data-value="Cảnh sát giao thông tỉnh Hà Nội">Cảnh sát giao thông tỉnh Hà Nội</div>
+                  <div class="option" data-value="Cảnh sát giao thông tỉnh Hà Tĩnh">Cảnh sát giao thông tỉnh Hà Tĩnh
+                  </div>
+                  <div class="option" data-value="Cảnh sát giao thông tỉnh Hải Dương">Cảnh sát giao thông tỉnh Hải Dương
+                  </div>
+                  <div class="option" data-value="Cảnh sát giao thông tỉnh Hải Phòng">Cảnh sát giao thông tỉnh Hải Phòng
+                  </div>
+                  <div class="option" data-value="Cảnh sát giao thông tỉnh Hậu Giang">Cảnh sát giao thông tỉnh Hậu Giang
+                  </div>
+                  <div class="option" data-value="Cảnh sát giao thông tỉnh Hòa Bình">Cảnh sát giao thông tỉnh Hòa Bình
+                  </div>
+                  <div class="option" data-value="Cảnh sát giao thông tỉnh Hồ Chí Minh">Cảnh sát giao thông tỉnh Hồ Chí
+                    Minh</div>
+                  <div class="option" data-value="Cảnh sát giao thông tỉnh Hưng Yên">Cảnh sát giao thông tỉnh Hưng Yên
+                  </div>
+                  <div class="option" data-value="Cảnh sát giao thông tỉnh Khánh Hòa">Cảnh sát giao thông tỉnh Khánh Hòa
+                  </div>
+                  <div class="option" data-value="Cảnh sát giao thông tỉnh Kiên Giang">Cảnh sát giao thông tỉnh Kiên
+                    Giang
+                  </div>
+                  <div class="option" data-value="Cảnh sát giao thông tỉnh Kon Tum">Cảnh sát giao thông tỉnh Kon Tum
+                  </div>
+                  <div class="option" data-value="Cảnh sát giao thông tỉnh Lai Châu">Cảnh sát giao thông tỉnh Lai Châu
+                  </div>
+                  <div class="option" data-value="Cảnh sát giao thông tỉnh Lâm Đồng">Cảnh sát giao thông tỉnh Lâm Đồng
+                  </div>
+                  <div class="option" data-value="Cảnh sát giao thông tỉnh Lạng Sơn">Cảnh sát giao thông tỉnh Lạng Sơn
+                  </div>
+                  <div class="option" data-value="Cảnh sát giao thông tỉnh Lào Cai">Cảnh sát giao thông tỉnh Lào Cai
+                  </div>
+                  <div class="option" data-value="Cảnh sát giao thông tỉnh Long An">Cảnh sát giao thông tỉnh Long An
+                  </div>
+                  <div class="option" data-value="Cảnh sát giao thông tỉnh Nam Định">Cảnh sát giao thông tỉnh Nam Định
+                  </div>
+                  <div class="option" data-value="Cảnh sát giao thông tỉnh Nghệ An">Cảnh sát giao thông tỉnh Nghệ An
+                  </div>
+                  <div class="option" data-value="Cảnh sát giao thông tỉnh Ninh Bình">Cảnh sát giao thông tỉnh Ninh Bình
+                  </div>
+                  <div class="option" data-value="Cảnh sát giao thông tỉnh Ninh Thuận">Cảnh sát giao thông tỉnh Ninh
+                    Thuận
+                  </div>
+                  <div class="option" data-value="Cảnh sát giao thông tỉnh Phú Thọ">Cảnh sát giao thông tỉnh Phú Thọ
+                  </div>
+                  <div class="option" data-value="Cảnh sát giao thông tỉnh Phú Yên">Cảnh sát giao thông tỉnh Phú Yên
+                  </div>
+                  <div class="option" data-value="Cảnh sát giao thông tỉnh Quảng Bình">Cảnh sát giao thông tỉnh Quảng
+                    Bình
+                  </div>
+                  <div class="option" data-value="Cảnh sát giao thông tỉnh Quảng Nam">Cảnh sát giao thông tỉnh Quảng Nam
+                  </div>
+                  <div class="option" data-value="Cảnh sát giao thông tỉnh Quảng Ngãi">Cảnh sát giao thông tỉnh Quảng
+                    Ngãi
+                  </div>
+                  <div class="option" data-value="Cảnh sát giao thông tỉnh Quảng Ninh">Cảnh sát giao thông tỉnh Quảng
+                    Ninh
+                  </div>
+                  <div class="option" data-value="Cảnh sát giao thông tỉnh Quảng Trị">Cảnh sát giao thông tỉnh Quảng Trị
+                  </div>
+                  <div class="option" data-value="Cảnh sát giao thông tỉnh Sóc Trăng">Cảnh sát giao thông tỉnh Sóc Trăng
+                  </div>
+                  <div class="option" data-value="Cảnh sát giao thông tỉnh Sơn La">Cảnh sát giao thông tỉnh Sơn La</div>
+                  <div class="option" data-value="Cảnh sát giao thông tỉnh Tây Ninh">Cảnh sát giao thông tỉnh Tây Ninh
+                  </div>
+                  <div class="option" data-value="Cảnh sát giao thông tỉnh Thái Bình">Cảnh sát giao thông tỉnh Thái Bình
+                  </div>
+                  <div class="option" data-value="Cảnh sát giao thông tỉnh Thái Nguyên">Cảnh sát giao thông tỉnh Thái
+                    Nguyên</div>
+                  <div class="option" data-value="Cảnh sát giao thông tỉnh Thanh Hóa">Cảnh sát giao thông tỉnh Thanh Hóa
+                  </div>
+                  <div class="option" data-value="Cảnh sát giao thông tỉnh Thừa Thiên - Huế">Cảnh sát giao thông tỉnh
+                    Thừa
+                    Thiên - Huế</div>
+                  <div class="option" data-value="Cảnh sát giao thông tỉnh Tiền Giang">Cảnh sát giao thông tỉnh Tiền
+                    Giang
+                  </div>
+                  <div class="option" data-value="Cảnh sát giao thông tỉnh Trà Vinh">Cảnh sát giao thông tỉnh Trà Vinh
+                  </div>
+                  <div class="option" data-value="Cảnh sát giao thông tỉnh Tuyên Quang">Cảnh sát giao thông tỉnh Tuyên
+                    Quang</div>
+                  <div class="option" data-value="Cảnh sát giao thông tỉnh Vĩnh Long">Cảnh sát giao thông tỉnh Vĩnh Long
+                  </div>
+                  <div class="option" data-value="Cảnh sát giao thông tỉnh Vĩnh Phúc">Cảnh sát giao thông tỉnh Vĩnh Phúc
+                  </div>
+                  <div class="option" data-value="Cảnh sát giao thông tỉnh Yên Bái">Cảnh sát giao thông tỉnh Yên Bái
+                  </div>
+                </div>
+                <input type="hidden" id="dviPhatHien" name="dviPhatHien" required>
+              </div>
+
+            </div>
+
+            <!-- Nơi nộp phạt -->
+            <div class="form-group">
+              <label>Nơi nộp phạt</label>
+              <div class="custom-select" id="payment-place-dropdown">
+                <input type="text" id="paymentPlaceInput" class="select-box" placeholder="-- Chọn nơi nộp phạt --"
+                  readonly>
+                <div class="options">
+                  <input type="text" id="paymentPlaceSearch" placeholder="Tìm nơi nộp phạt..."
+                    style="width: 100%; padding: 5px; box-sizing: border-box;">
+                  <div class="option" data-value="Trụ sở công an">Trụ sở công an</div>
+                  <div class="option" data-value="Văn phòng giao thông">Văn phòng giao thông</div>
+                </div>
+                <input type="hidden" id="noiNopPhat" name="noiNopPhat" required>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="button-group">
+            <button type="button" class="return-btn">Quay lại trang chủ</button>
+            <button type="submit" class="submit-btn">Gửi</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Cột 3:  Map (bên phải của form) -->
+    <div class="map-column">
+      <div id="map"></div>
+    </div>
+  </div>
+
+  <script src="../static/js/report.js"></script>
+  <!-- <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script> -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <!-- <script src="../static/js/leaflet.js"></script> -->
+
+</body>
+
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tra Cứu Phạt Nguội</title>
+  <link rel="stylesheet" href="../static/css/index.css">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
+</head>
+
+<body>
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-logo">CheckPhatNguoi</div>
+    <nav class="header-nav">
+      <a href="#" class="nav-link">Trang chủ</a>
+      <a href="#" class="nav-link">Tra cứu phạt nguội</a>
+      <a href="#" class="nav-link">Hỏi đáp</a>
+    </nav>
+
+
+    <div class="user-info" id="user-info">
+      <span id="user-name"></span>
+      <i class="fas fa-user" id="user-icon"></i>
+      <div id="user-dropdown" class="dropdown-menu">
+        <a href="/user-info">Trang cá nhân</a>
+        <button id="logout-btn">Đăng xuất</button>
+      </div>
+    </div>
+
+
+
+  </header>
+
+  <!-- HERO SECTION -->
+  <section class="hero">
+    <h1 class="hero-title">Tra Cứu Phạt Nguội Ô Tô, Xe Máy</h1>
+    <p class="hero-subtitle">
+      Kiểm tra, tra cứu nhanh vi phạm giao thông, nộp phạt online.<br />
+      ...
+    </p>
+  </section>
+
+  <!-- MAIN CONTENT -->
+  <main class="container">
+    <h2>Chọn Phương Thức Kiểm Tra</h2>
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="upload-tab">Upload Ảnh</button>
+      <button class="tab-btn" data-tab="camera-tab">Chụp Ảnh</button>
+      <button class="tab-btn" data-tab="manual-tab">Nhập Biển Số</button>
+    </div>
+
+    <!-- Tab 1: Upload Ảnh -->
+    <div id="upload-tab" class="tab-content active">
+      <div class="upload-container">
+        <div id="drop-area" class="drop-area">
+
+          <p id="contentDrag">Kéo thả ảnh vào đây &#x2601; </p>
+          <!-- Hiển thị preview ảnh khi có file -->
+          <img id="upload-preview" src="" alt="Ảnh đã chọn" style="display: none;" />
+          <!-- <input type="file" id="upload-preview" accept="image/*" style="display: none;"/> -->
+        </div>
+        <!-- File input ẩn -->
+        <input type="file" id="upload-file-input" accept="image/*" style="display: none;" />
+        <div class="upload-actions">
+          <!-- Ban đầu chỉ hiển thị nút chọn ảnh -->
+          <button class="btn primary-btn" id="select-image-btn">Chọn Ảnh</button>
+          <!-- Sau khi có ảnh, nút này sẽ hiện -->
+          <button type="button" class="btn secondary-btn" id="lookup-upload" style="display: none;">Tra cứu</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab 2: Chụp Ảnh -->
+    <div id="camera-tab" class="tab-content">
+      <div class="camera-container">
+        <div id="camera-view">
+          <video id="camera-stream" autoplay playsinline></video>
+        </div>
+        <div id="captured-image-container" style="display: none;">
+          <img id="captured-image" alt="Ảnh vừa chụp" />
+        </div>
+        <div class="camera-actions">
+          <!-- Ban đầu chỉ nút mở camera hiển thị -->
+          <button class="btn primary-btn" id="start-camera">Mở Camera</button>
+          <!-- Nút chụp ẩn cho đến khi camera mở -->
+          <button class="btn primary-btn" id="capture-photo" style="display: none;">Chụp</button>
+          <!-- Nút tra cứu xuất hiện sau khi chụp -->
+          <button type="button" class="btn secondary-btn" id="lookup-camera" style="display: none;">Tra cứu</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab 3: Nhập Biển Số -->
+    <div id="manual-tab" class="tab-content">
+      <div class="manual-container">
+        <label for="plate-input">Nhập Biển Số Xe:</label>
+        <input type="text" id="plate-input" placeholder="VD: 30A12345" />
+        <div class="manual-actions">
+          <button class="btn primary-btn" id="check-plate" onclick="uploadSign()">Tra Cứu</button>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="container2">
+      <div id="plates-container"></div>
+
+      <div id="phat-nguoi-form">
+      </div>
+  </main>
+
+
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <p>© 2025 CheckPhatNguoi. All rights reserved.</p>
+  </footer>
+
+  <script src="../static/js/apiTest.js"></script>
+  <script src="../static/js/index.js"></script>
+</body>
+
+</html>
