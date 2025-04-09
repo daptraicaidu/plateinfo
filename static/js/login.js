@@ -1,13 +1,11 @@
 document.addEventListener("DOMContentLoaded", async () => {
   try {
-    // Kiểm tra xem BE có session không
     const userResponse = await fetch("http://helloworld871523-001-site1.qtempurl.com/api/PN/user-info", {
       method: "GET",
       credentials: "include",
     });
 
     if (userResponse.ok) {
-      // Nếu đã đăng nhập, redirect về trang chính
       window.location.href = "index.html";
       return;
     }
@@ -60,7 +58,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       });
 
       if (checkUser.ok) {
-        // window.location.href = "index.html";
+        window.location.href = "index.html";
       } else {
         alert("Lỗi xác thực sau khi đăng nhập!");
       }
