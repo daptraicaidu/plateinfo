@@ -41,9 +41,6 @@ document.addEventListener("DOMContentLoaded", async () => {
         credentials: "include",
       });
 
-      if(response.ok) {
-        alert("Đăng nhập thành công!");
-      }
       if (!response.ok) {
         const errorData = await response.json();
         alert(errorData.message || "Đăng nhập thất bại!");
