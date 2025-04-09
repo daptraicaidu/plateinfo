@@ -240,7 +240,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       });
 
       if (logoutResponse.ok) {
-        window.location.href = "/";
+        window.location.href = "index.html";
       }
     } catch (error) {
       console.error("Lỗi khi đăng xuất:", error);
