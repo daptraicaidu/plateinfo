@@ -209,7 +209,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   try {
     // Kiểm tra xem user có đang đăng nhập không
-    const response = await fetch("http://helloworld871523-001-site1.qtempurl.com/api/PN/user-info", {
+    const response = await fetch("https://dark-sun-4780.trancuop8.workers.dev/api/PN/user-info", {
       method: "GET",
       credentials: "include",
     });
@@ -234,7 +234,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     e.stopPropagation();
 
     try {
-      const logoutResponse = await fetch("http://helloworld871523-001-site1.qtempurl.com/api/PN/logout", {
+      const logoutResponse = await fetch("https://dark-sun-4780.trancuop8.workers.dev/api/PN/logout", {
         method: "POST",
         credentials: "include",
       });

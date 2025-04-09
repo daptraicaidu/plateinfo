@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   let hasPermission = false; // Biến lưu trạng thái quyền
 
   try {
-    const response = await fetch("http://helloworld871523-001-site1.qtempurl.com/api/auth/check-access", {
+    const response = await fetch("https://dark-sun-4780.trancuop8.workers.dev/api/auth/check-access", {
       method: "GET",
       credentials: "include",
     });
@@ -171,7 +171,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 async function checkPhatNguoi(bienso) {
   try {
-    const response = await fetch('http://helloworld871523-001-site1.qtempurl.com/api/PN/traCuuViPham', {
+    const response = await fetch('https://dark-sun-4780.trancuop8.workers.dev/api/PN/traCuuViPham', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',

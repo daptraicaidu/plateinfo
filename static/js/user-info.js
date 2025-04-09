@@ -1,6 +1,6 @@
 async function fetchUserInfo() {
   try {
-      const response = await fetch('http://helloworld871523-001-site1.qtempurl.com/api/PN/user-info', {
+      const response = await fetch('https://dark-sun-4780.trancuop8.workers.dev/api/PN/user-info', {
           method: 'GET',
           credentials: 'include'
       });

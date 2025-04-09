@@ -4,7 +4,7 @@
 
 document.addEventListener("DOMContentLoaded", async () => {
   try {
-    const response = await fetch("http://helloworld871523-001-site1.qtempurl.com/api/auth/check-access", {
+    const response = await fetch("https://dark-sun-4780.trancuop8.workers.dev/api/auth/check-access", {
       method: "GET",
       credentials: "include",
     });
@@ -55,7 +55,7 @@ async function fetchThongKe() {
   }).toString();
 
   try {
-    const response = await fetch(`http://helloworld871523-001-site1.qtempurl.com/api/viphamgt/thongke?${queryParams}`, {
+    const response = await fetch(`https://dark-sun-4780.trancuop8.workers.dev/api/viphamgt/thongke?${queryParams}`, {
       method: "GET",
       credentials: "include", // 🔥 Quan trọng: Đảm bảo session được gửi lên BE
     });
