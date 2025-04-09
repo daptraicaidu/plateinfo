@@ -68,7 +68,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const formData = new FormData();
     formData.append("file", file);
 
-    fetch('http://localhost:8000/detect/', {
+    fetch('https://detectreadplate.onrender.com/detect/', {
       method: 'POST',
       body: formData,
     })
@@ -99,7 +99,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 const textFormData = new FormData();
                 textFormData.append("file", blob, "plate.jpg");
 
-                return fetch('http://localhost:8000/read/', {
+                return fetch('https://detectreadplate.onrender.com/read/', {
                   method: 'POST',
                   body: textFormData,
                 });
