@@ -396,6 +396,9 @@ document.addEventListener('DOMContentLoaded', function () {
     // }
   });
 
+  document.getElementById("return-dashboard").addEventListener("click", function () {
+    window.location.href = "index.html";
+  });
 
 
 
