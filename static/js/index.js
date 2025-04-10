@@ -206,6 +206,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const userDropdown = document.getElementById("user-dropdown");
   const logoutBtn = document.getElementById("logout-btn");
   const userIcon = document.getElementById("user-icon");
+  const loginBtn = document.getElementById("login-btn");
 
   try {
     // Kiểm tra xem user có đang đăng nhập không
@@ -218,6 +219,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       const userData = await response.json();
       userNameSpan.textContent = userData.tenCongAn || "Người dùng";
       userInfoDiv.style.display = "flex"; // Hiển thị user info nếu đã đăng nhập
+      loginBtn.style.display = "none"; // Ẩn nút đăng nhập
     }
   } catch (error) {
     console.error("Lỗi lấy thông tin user:", error);
@@ -241,6 +243,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       if (logoutResponse.ok) {
         window.location.href = "index.html";
+        loginBtn.style.display = "block"; // Hiển thị lại nút đăng nhập
       }
     } catch (error) {
       console.error("Lỗi khi đăng xuất:", error);
