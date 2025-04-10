@@ -68,9 +68,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     const formData = new FormData();
     formData.append("file", file);
 
-    fetch('https://detectreadplate.onrender.com/detect', {
+    fetch('https://4f82-103-238-70-161.ngrok-free.app/detect', {
       method: 'POST',
       body: formData,
+      headers: {
+        "ngrok-skip-browser-warning": "true" 
+      }
     })
       .then(response => response.json())
       .then(data => {
@@ -99,9 +102,12 @@ document.addEventListener("DOMContentLoaded", async () => {
                 const textFormData = new FormData();
                 textFormData.append("file", blob, "plate.jpg");
 
-                return fetch('https://detectreadplate.onrender.com/read', {
+                return fetch('https://4f82-103-238-70-161.ngrok-free.app/read', {
                   method: 'POST',
                   body: textFormData,
+                  headers: {
+                    "ngrok-skip-browser-warning": "true" 
+                  }
                 });
               })
               .then(response => response.json())
