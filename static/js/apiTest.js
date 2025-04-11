@@ -49,6 +49,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   document.getElementById("lookup-upload").addEventListener("click", uploadImage);
   document.getElementById("lookup-camera").addEventListener("click", uploadImage);
+  document.getElementById("lookup-upload").addEventListener("touchstart", uploadImage);
+  document.getElementById("lookup-camera").addEventListener("touchstart", uploadImage);
 
   function uploadImage(event) {
     // Ngăn hành vi reload
