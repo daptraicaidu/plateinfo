@@ -68,7 +68,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const formData = new FormData();
     formData.append("file", file);
 
-    fetch('https://4f82-103-238-70-161.ngrok-free.app/detect', {
+    fetch('https://6e60-101-99-23-128.ngrok-free.app/detect', {
       method: 'POST',
       body: formData,
       headers: {
@@ -102,7 +102,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 const textFormData = new FormData();
                 textFormData.append("file", blob, "plate.jpg");
 
-                return fetch('https://4f82-103-238-70-161.ngrok-free.app/read', {
+                return fetch('https://6e60-101-99-23-128.ngrok-free.app/read', {
                   method: 'POST',
                   body: textFormData,
                   headers: {
